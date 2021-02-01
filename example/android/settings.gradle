@@ -1,0 +1,6 @@
+rootProject.name = 'CanvasReactNativeExample'
+apply from: file("../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesSettingsGradle(settings)
+include ':app'
+
+include ':canvasreactnative'
+project(':canvasreactnative').projectDir = new File(rootProject.projectDir, '../../android')
