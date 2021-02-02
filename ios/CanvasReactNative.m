@@ -1,9 +1,8 @@
-#import <React/RCTBridgeModule.h>
+#import <Foundation/Foundation.h>
+#import "React/RCTViewManager.h"
 
-@interface RCT_EXTERN_MODULE(CanvasReactNative, NSObject)
-
-RCT_EXTERN_METHOD(multiply:(float)a withB:(float)b
-                 withResolver:(RCTPromiseResolveBlock)resolve
-                 withRejecter:(RCTPromiseRejectBlock)reject)
-
+@interface RCT_EXTERN_MODULE(CanvasReactNative, RCTViewManager)
+    RCT_EXTERN_METHOD(sync:(nonnull NSNumber *)node
+                      command:(nonnull NSString *) command
+                      )
 @end

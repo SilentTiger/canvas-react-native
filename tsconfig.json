@@ -4,13 +4,14 @@
     "paths": {
       "canvas-react-native": ["./src/index"]
     },
+    "types": ["react-native"],
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,
     "esModuleInterop": true,
     "importsNotUsedAsValues": "error",
     "forceConsistentCasingInFileNames": true,
     "jsx": "react",
-    "lib": ["esnext"],
+    "lib": ["esnext", "DOM"],
     "module": "esnext",
     "moduleResolution": "node",
     "noFallthroughCasesInSwitch": true,

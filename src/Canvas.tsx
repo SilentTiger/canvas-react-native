@@ -3,13 +3,11 @@ import { findNodeHandle, NativeMethods, requireNativeComponent, UIManager, ViewP
 import CanvasContext from './CanvasContext'
 import Synchronizer from './Synchronizer'
 
-// const { CanvasReactNative } = NativeModules;
-const CanvasReactNative = requireNativeComponent('CanvasReactNative') as any
+const CanvasReactNative = requireNativeComponent('CanvasReactNative')
 const nativeCommands = UIManager.getViewManagerConfig('CanvasReactNative').Commands
 
 export interface CanvasReactNativeStatic {
   getContext: () => CanvasContext
-  sync: () => void
 }
 
 export interface CanvasReactNativeProps extends ViewProps {
@@ -37,12 +35,10 @@ function CanvasReactNativeWrap(props: CanvasReactNativeProps, ref: Ref<CanvasRea
     getContext: () => {
       return contextRef.current
     },
-    sync: () => {
-      synchronizer.current?.sync()
-    },
+    sync: synchronizer.current.sync,
   }))
 
-  return <CanvasReactNative ref={nativeCanvasRef} {...props} />
+  return <CanvasReactNative ref={nativeCanvasRef} />
 }
 
 export default forwardRef<CanvasReactNativeStatic, CanvasReactNativeProps>(CanvasReactNativeWrap)

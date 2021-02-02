@@ -1,8 +1,22 @@
-@objc(CanvasReactNative)
-class CanvasReactNative: NSObject {
+import Foundation
+import UIKit
 
-    @objc(multiply:withB:withResolver:withRejecter:)
-    func multiply(a: Float, b: Float, resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) -> Void {
-        resolve(a*b)
+@objc(CanvasReactNative)
+class CanvasReactNative: RCTViewManager {
+    var canvas: Canvas!
+    override func view() -> UIView! {
+        canvas = Canvas()
+        canvas.backgroundColor = UIColor.blue
+        return canvas
     }
+
+    override static func requiresMainQueueSetup() -> Bool {
+        return true
+    }
+
+     @objc public func sync(_ node:NSNumber, command:NSString){
+         DispatchQueue.main.sync {
+            canvas.sync(command: command)
+         }
+     }
 }
