@@ -39,7 +39,7 @@ export default class CanvasContext {
   }
   public set globalAlpha(val: number) {
     this.#globalAlpha = val
-    this.#synchronizer.pushCommand(EnumPropertyCommand.globalAlpha, val)
+    this.#synchronizer.pushCommand(EnumPropertyCommand.globalAlpha, [val])
   }
 
   #globalCompositeOperation: EnumCompositeOperation = EnumCompositeOperation.SourceOver
@@ -48,7 +48,7 @@ export default class CanvasContext {
   }
   public set globalCompositeOperation(val: EnumCompositeOperation) {
     this.#globalCompositeOperation = val
-    this.#synchronizer.pushCommand(EnumPropertyCommand.globalCompositeOperation, val)
+    this.#synchronizer.pushCommand(EnumPropertyCommand.globalCompositeOperation, [val])
   }
 
   #imageSmoothingEnabled = true
@@ -57,7 +57,7 @@ export default class CanvasContext {
   }
   public set imageSmoothingEnabled(val: boolean) {
     this.#imageSmoothingEnabled = val
-    this.#synchronizer.pushCommand(EnumPropertyCommand.imageSmoothingEnabled, val)
+    this.#synchronizer.pushCommand(EnumPropertyCommand.imageSmoothingEnabled, [val])
   }
 
   #imageSmoothingQuality: ImageSmoothingQuality = 'high'
@@ -66,7 +66,7 @@ export default class CanvasContext {
   }
   public set imageSmoothingQuality(val: ImageSmoothingQuality) {
     this.#imageSmoothingQuality = val
-    this.#synchronizer.pushCommand(EnumPropertyCommand.imageSmoothingQuality, val)
+    this.#synchronizer.pushCommand(EnumPropertyCommand.imageSmoothingQuality, [val])
   }
 
   // not support CanvasPattern
@@ -80,7 +80,7 @@ export default class CanvasContext {
     } else {
       this.#fillStyle = val.clone()
     }
-    this.#synchronizer.pushCommand(EnumPropertyCommand.fillStyle, this.#fillStyle)
+    this.#synchronizer.pushCommand(EnumPropertyCommand.fillStyle, [this.#fillStyle])
   }
 
   // not support CanvasPattern
@@ -94,7 +94,7 @@ export default class CanvasContext {
     } else {
       this.#strokeStyle = val.clone()
     }
-    this.#synchronizer.pushCommand(EnumPropertyCommand.strokeStyle, this.#strokeStyle)
+    this.#synchronizer.pushCommand(EnumPropertyCommand.strokeStyle, [this.#strokeStyle])
   }
 
   #shadowBlur = 0
@@ -104,7 +104,7 @@ export default class CanvasContext {
 
   public set shadowBlur(val: number) {
     this.#shadowBlur = val
-    this.#synchronizer.pushCommand(EnumPropertyCommand.shadowBlur, val)
+    this.#synchronizer.pushCommand(EnumPropertyCommand.shadowBlur, [val])
   }
 
   #shadowColor = 'fully-transparent'
@@ -114,7 +114,7 @@ export default class CanvasContext {
 
   public set shadowColor(val: string) {
     this.#shadowColor = val
-    this.#synchronizer.pushCommand(EnumPropertyCommand.shadowColor, val)
+    this.#synchronizer.pushCommand(EnumPropertyCommand.shadowColor, [val])
   }
 
   #shadowOffsetX = 0
@@ -124,7 +124,7 @@ export default class CanvasContext {
 
   public set shadowOffsetX(val: number) {
     this.#shadowOffsetX = val
-    this.#synchronizer.pushCommand(EnumPropertyCommand.shadowOffsetX, val)
+    this.#synchronizer.pushCommand(EnumPropertyCommand.shadowOffsetX, [val])
   }
 
   #shadowOffsetY = 0
@@ -134,7 +134,7 @@ export default class CanvasContext {
 
   public set shadowOffsetY(val: number) {
     this.#shadowOffsetY = val
-    this.#synchronizer.pushCommand(EnumPropertyCommand.shadowOffsetY, val)
+    this.#synchronizer.pushCommand(EnumPropertyCommand.shadowOffsetY, [val])
   }
 
   #filter = 'none'
@@ -144,7 +144,7 @@ export default class CanvasContext {
 
   public set filter(val: string) {
     this.#filter = val
-    this.#synchronizer.pushCommand(EnumPropertyCommand.filter, val)
+    this.#synchronizer.pushCommand(EnumPropertyCommand.filter, [val])
   }
 
   #lineCap: CanvasLineCap = 'butt'
@@ -153,7 +153,7 @@ export default class CanvasContext {
   }
   public set lineCap(val: CanvasLineCap) {
     this.#lineCap = val
-    this.#synchronizer.pushCommand(EnumPropertyCommand.lineCap, val)
+    this.#synchronizer.pushCommand(EnumPropertyCommand.lineCap, [val])
   }
 
   #lineDashOffset = 0
@@ -162,7 +162,7 @@ export default class CanvasContext {
   }
   public set lineDashOffset(val: number) {
     this.#lineDashOffset = val
-    this.#synchronizer.pushCommand(EnumPropertyCommand.lineDashOffset, val)
+    this.#synchronizer.pushCommand(EnumPropertyCommand.lineDashOffset, [val])
   }
 
   #lineJoin: CanvasLineJoin = 'miter'
@@ -171,7 +171,7 @@ export default class CanvasContext {
   }
   public set lineJoin(val: CanvasLineJoin) {
     this.#lineJoin = val
-    this.#synchronizer.pushCommand(EnumPropertyCommand.lineJoin, val)
+    this.#synchronizer.pushCommand(EnumPropertyCommand.lineJoin, [val])
   }
 
   #lineWidth = 1
@@ -180,7 +180,7 @@ export default class CanvasContext {
   }
   public set lineWidth(val: number) {
     this.#lineWidth = val
-    this.#synchronizer.pushCommand(EnumPropertyCommand.lineWidth, val)
+    this.#synchronizer.pushCommand(EnumPropertyCommand.lineWidth, [val])
   }
 
   #miterLimit = 10
@@ -189,7 +189,7 @@ export default class CanvasContext {
   }
   public set miterLimit(val: number) {
     this.#miterLimit = val
-    this.#synchronizer.pushCommand(EnumPropertyCommand.miterLimit, val)
+    this.#synchronizer.pushCommand(EnumPropertyCommand.miterLimit, [val])
   }
 
   #direction: CanvasDirection = 'ltr'
@@ -198,7 +198,7 @@ export default class CanvasContext {
   }
   public set direction(val: CanvasDirection) {
     this.#direction = val
-    this.#synchronizer.pushCommand(EnumPropertyCommand.direction, val)
+    this.#synchronizer.pushCommand(EnumPropertyCommand.direction, [val])
   }
 
   #font = '10px sans-serif'
@@ -207,7 +207,7 @@ export default class CanvasContext {
   }
   public set font(val: string) {
     this.#font = val
-    this.#synchronizer.pushCommand(EnumPropertyCommand.font, val)
+    this.#synchronizer.pushCommand(EnumPropertyCommand.font, [val])
   }
 
   #textAlign: CanvasTextAlign = 'start'
@@ -216,7 +216,7 @@ export default class CanvasContext {
   }
   public set textAlign(val: CanvasTextAlign) {
     this.#textAlign = val
-    this.#synchronizer.pushCommand(EnumPropertyCommand.textAlign, val)
+    this.#synchronizer.pushCommand(EnumPropertyCommand.textAlign, [val])
   }
 
   #textBaseline: CanvasTextBaseline = 'alphabetic'
@@ -225,7 +225,7 @@ export default class CanvasContext {
   }
   public set textBaseline(val: CanvasTextBaseline) {
     this.#textBaseline = val
-    this.#synchronizer.pushCommand(EnumPropertyCommand.textBaseline, val)
+    this.#synchronizer.pushCommand(EnumPropertyCommand.textBaseline, [val])
   }
   // #endregion
 

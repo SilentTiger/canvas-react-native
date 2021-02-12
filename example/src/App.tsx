@@ -10,7 +10,13 @@ export default function App() {
   useLayoutEffect(() => {
     if (canvasReactNativeRef.current) {
       const ctx = canvasReactNativeRef.current.getContext()
-      ctx.lineTo(100, 100)
+      ctx.lineWidth = 10
+      ctx.lineJoin = 'round'
+      ctx.lineTo(100, 200)
+      ctx.lineJoin = 'miter'
+      ctx.lineTo(200, 100)
+      ctx.lineJoin = 'bevel'
+      ctx.lineTo(300, 200)
       // canvasReactNativeRef.current.sync()
     }
   })
@@ -36,7 +42,6 @@ const styles = StyleSheet.create({
     marginVertical: 20,
   },
   canvas: {
-    backgroundColor: 'green',
     flex: 1,
   },
 })

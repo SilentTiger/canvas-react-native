@@ -14,7 +14,7 @@ class CanvasReactNative: RCTViewManager {
         return true
     }
 
-     @objc public func sync(_ node:NSNumber, command:NSString){
+     @objc public func sync(_ node:NSNumber, command:String){
          DispatchQueue.main.sync {
             canvas.sync(command: command)
          }
