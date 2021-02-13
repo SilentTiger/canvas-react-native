@@ -115,12 +115,6 @@ enum EnumCompositeOperation: String {
   case Luminosity = "luminosity"
 }
 
-enum ImageSmoothingQuality: String {
-    case High = "high"
-    case Low = "low"
-    case Medium = "medium"
-}
-
 struct CanvasLinearGradientStruct {
     var x0: Double
     var y0: Double

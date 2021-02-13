@@ -30,7 +30,7 @@ export default class Synchronizer {
 
   public pushCommand(
     cmdType: EnumMethodCommand | EnumPropertyCommand,
-    args: any,
+    args: any[],
     callback?: (result: any, id: number, cmdType: EnumMethodCommand | EnumPropertyCommand, args: any) => void
   ) {
     const id = this.currentId++

@@ -25,6 +25,15 @@ interface ICanvasContextProperty {
   textBaseline: CanvasTextBaseline
 }
 
+interface TransformMatrix {
+  a: number
+  b: number
+  c: number
+  d: number
+  e: number
+  f: number
+}
+
 export default class CanvasContext {
   #propertyStack: ICanvasContextProperty[] = []
   #lineDash: number[] = []
@@ -272,11 +281,11 @@ export default class CanvasContext {
   }
 
   public resetTransform(): void {
-    return this.ctxDoc.resetTransform()
+    this.setTransform()
   }
 
   public rotate(angle: number): void {
-    this.#synchronizer.pushCommand(EnumMethodCommand.rotate, angle)
+    this.#synchronizer.pushCommand(EnumMethodCommand.rotate, [angle])
   }
 
   public scale(x: number, y: number): void {
@@ -284,19 +293,19 @@ export default class CanvasContext {
   }
 
   public setTransform(a: number, b: number, c: number, d: number, e: number, f: number): void
-  public setTransform(transform?: DOMMatrix2DInit): void
+  public setTransform(transform?: TransformMatrix): void
   public setTransform(a?: any, b?: any, c?: any, d?: any, e?: any, f?: any) {
     if (a === undefined) {
-      this.#synchronizer.pushCommand(EnumMethodCommand.setTransform, [undefined])
+      this.#synchronizer.pushCommand(EnumMethodCommand.setTransform, [1, 0, 0, 1, 0, 0])
     } else if (b === undefined) {
-      this.#synchronizer.pushCommand(EnumMethodCommand.setTransform, [a])
+      this.#synchronizer.pushCommand(EnumMethodCommand.setTransform, [a.a, a.b, a.c, a.d, a.e, a.f])
     } else if (c !== undefined && d !== undefined && e !== undefined && f !== undefined) {
       this.#synchronizer.pushCommand(EnumMethodCommand.setTransform, [a, b, c, d, e, f])
     }
   }
 
   public transform(a: number, b: number, c: number, d: number, e: number, f: number): void {
-    this.#synchronizer.pushCommand(EnumMethodCommand.transform, [a, b, c, d, e, f])
+    this.#synchronizer.pushCommand(EnumMethodCommand.setTransform, [a, b, c, d, e, f])
   }
 
   public translate(x: number, y: number): void {
@@ -332,7 +341,7 @@ export default class CanvasContext {
   }
 
   public beginPath(): void {
-    this.#synchronizer.pushCommand(EnumMethodCommand.beginPath, undefined)
+    this.#synchronizer.pushCommand(EnumMethodCommand.beginPath, [])
   }
 
   // not support clip Path2D
@@ -362,7 +371,7 @@ export default class CanvasContext {
   // not support stroke Path2D
   // public stroke(path?: Path2D): void
   public stroke(): void {
-    this.#synchronizer.pushCommand(EnumMethodCommand.stroke, undefined)
+    this.#synchronizer.pushCommand(EnumMethodCommand.stroke, [])
   }
 
   public drawFocusIfNeeded(element: Element): void
@@ -486,7 +495,7 @@ export default class CanvasContext {
     endAngle: number,
     anticlockwise?: boolean
   ): void {
-    this.#synchronizer.pushCommand(EnumMethodCommand.arc, [x, y, radius, startAngle, endAngle, anticlockwise])
+    this.#synchronizer.pushCommand(EnumMethodCommand.arc, [x, y, radius, startAngle, endAngle, anticlockwise ?? false])
   }
 
   public arcTo(x1: number, y1: number, x2: number, y2: number, radius: number): void {
@@ -498,7 +507,7 @@ export default class CanvasContext {
   }
 
   public closePath(): void {
-    this.#synchronizer.pushCommand(EnumMethodCommand.closePath, undefined)
+    this.#synchronizer.pushCommand(EnumMethodCommand.closePath, [])
   }
 
   public ellipse(

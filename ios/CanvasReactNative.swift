@@ -6,7 +6,7 @@ class CanvasReactNative: RCTViewManager {
     var canvas: Canvas!
     override func view() -> UIView! {
         canvas = Canvas()
-        canvas.backgroundColor = UIColor.blue
+        canvas.backgroundColor = UIColor.white
         return canvas
     }
 

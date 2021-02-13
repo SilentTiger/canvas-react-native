@@ -10,14 +10,11 @@ export default function App() {
   useLayoutEffect(() => {
     if (canvasReactNativeRef.current) {
       const ctx = canvasReactNativeRef.current.getContext()
-      ctx.lineWidth = 10
-      ctx.lineJoin = 'round'
-      ctx.lineTo(100, 200)
-      ctx.lineJoin = 'miter'
-      ctx.lineTo(200, 100)
-      ctx.lineJoin = 'bevel'
-      ctx.lineTo(300, 200)
-      // canvasReactNativeRef.current.sync()
+      ctx.lineWidth = 3
+
+      ctx.transform(1, 1, 0, 1, 0, 0)
+      ctx.fillRect(0, 0, 100, 100)
+      ctx.setTransform()
     }
   })
 
