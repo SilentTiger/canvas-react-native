@@ -8,19 +8,79 @@ a canvas component implement in native
 npm install canvas-react-native
 ```
 
-## Usage
-
-```js
-import CanvasReactNative from "canvas-react-native";
-
-// ...
-
-const result = await CanvasReactNative.multiply(3, 7);
-```
-
-## Contributing
-
-See the [contributing guide](CONTRIBUTING.md) to learn how to contribute to the repository and the development workflow.
+## Capability
+🟢 Fully support
+🟡 Most support
+🟠 Partial support
+🔴 Not support
+⚪️ Not yet processed
+### Properties
+|Property Name| iOS| Android| Comment|
+|---|---|---|---|
+|globalAlpha|🟢|🟢||
+|globalCompositeOperation|🟢|🟢||
+|imageSmoothingEnabled|🔴|🟢||
+|imageSmoothingQuality|🔴|🟢||
+|fillStyle|🟡|🟢||
+|strokeStyle|🟢|🟢||
+|shadowBlur|🟢|🟢||
+|shadowColor|🟢|🟢||
+|shadowOffsetX|🟢|🟢||
+|shadowOffsetY|🟢|🟢||
+|filter|🔴|🟢||
+|lineCap|🟢|🟢||
+|lineDashOffset|🟢|🟢||
+|lineJoin|🟢|🟢||
+|lineWidth|🟢|🟢||
+|miterLimit|🟢|🟢||
+|direction|🔴|🟢||
+|font|🟢|🟢||
+|textAlign|🔴|🟢||
+|textBaseline|🔴|🟢||
+### Methods
+|Method Name| iOS| Android| Comment|
+|---|---|---|---|
+|restore|🟢|||
+|save|🟢|||
+|getTransform||||
+|resetTransform|🟢|||
+|rotate|🟢|||
+|scale|🟢|||
+|setTransform|🟢|||
+|transform|🟢|||
+|translate|🟢|||
+|createLinearGradient||||
+|createPattern|🔴|🔴||
+|createRadialGradient||||
+|clearRect||||
+|fillRect|🟢|||
+|strokeRect|🟢|||
+|beginPath|🟢|||
+|clip||||
+|fill|🟢|||
+|isPointInPath||||
+|isPointInStroke||||
+|stroke|🟡|||
+|drawFocusIfNeeded||||
+|scrollPathIntoView||||
+|fillText||||
+|measureText||||
+|strokeText||||
+|drawImage||||
+|createImageData|🟢|||
+|getImageData||||
+|putImageData||||
+|getLineDash|🟢|||
+|setLineDash|🟢|||
+|arc|🟢|||
+|arcTo|🟢|||
+|bezierCurveTo|🟢|||
+|closePath|🟢|||
+|ellipse||||
+|lineTo|🟢|||
+|moveTo|🟢|||
+|quadraticCurveTo|🟢|||
+|rect|🟢|||
 
 ## License
 
