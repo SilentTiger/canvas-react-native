@@ -495,6 +495,36 @@ class CanvasContext {
 
     private func putImageDataMethod(command: CanvasCommandStruct, context: CGContext) {
         print("putImageData", command)
+        let imageData: [UInt8] = command.args[0] as? [UInt8] ?? []
+        let x = command.args[1] as? UInt64 ?? 0
+        let y = command.args[2] as? UInt64 ?? 0
+        let width = command.args[3] as? Int ?? 0
+        let height = command.args[4] as? Int ?? 0
+        
+        let bitsPerComponent = 8
+        let bitsPerPixel = bitsPerComponent * 4
+        let bytesPerRow = bitsPerPixel * width / 8
+
+        // reverse imageData by row
+        var reversedImageData: [UInt8] = []
+        var index = imageData.count / bytesPerRow
+        while index > 0 {
+            var indexInRow = 0
+            while indexInRow < bytesPerRow {
+                reversedImageData.append(imageData[(index - 1) * bytesPerRow + indexInRow])
+                indexInRow += 1
+            }
+            index -= 1
+        }
+        
+        let colorspace = CGColorSpaceCreateDeviceRGB();
+        let rgbData = CFDataCreate(kCFAllocatorDefault, reversedImageData, width * height * bitsPerPixel);
+        let provider = CGDataProvider(data: rgbData!);
+        let bimapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.last.rawValue)
+            .union(.byteOrder32Big)
+        let rgbImageRef = CGImage(width: width, height: height, bitsPerComponent: bitsPerComponent, bitsPerPixel: bitsPerPixel, bytesPerRow: bytesPerRow, space: colorspace, bitmapInfo: bimapInfo, provider: provider!, decode: nil, shouldInterpolate: true, intent: CGColorRenderingIntent.defaultIntent);
+        
+        context.draw(rgbImageRef!, in: CGRect(x: CGFloat(x), y: CGFloat(y), width: CGFloat(width), height: CGFloat(height)), byTiling: false)
     }
 
     private func getLineDashMethod(command: CanvasCommandStruct, context: CGContext) {

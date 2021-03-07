@@ -1,5 +1,5 @@
 import { CanvasGradient, CanvasLinearGradient, CanvasRadialGradient } from './CanvasGradient'
-import { EnumPropertyCommand, EnumCompositeOperation, EnumMethodCommand } from './Enum'
+import { EnumPropertyCommand, EnumCompositeOperation, EnumMethodCommand, ImageData } from './Common'
 import type Synchronizer from './Synchronizer'
 
 interface ICanvasContextProperty {
@@ -437,10 +437,18 @@ export default class CanvasContext {
   public createImageData(imagedata: ImageData): ImageData
   public createImageData(sw: any, sh?: any) {
     if (typeof sw === 'number') {
-      return new ImageData(sw, sh)
+      return {
+        data: new Uint8Array(sw * sh),
+        width: sw,
+        height: sh,
+      }
     } else {
       const data = sw as ImageData
-      return new ImageData(data.width, data.height)
+      return {
+        data: data.data,
+        width: data.width,
+        height: data.height,
+      }
     }
   }
 
@@ -459,22 +467,38 @@ export default class CanvasContext {
     dirtyHeight: number
   ): void
   public putImageData(
-    imagedata: any,
-    dx: any,
-    dy: any,
-    dirtyX?: any,
-    dirtyY?: any,
-    dirtyWidth?: any,
-    dirtyHeight?: any
+    imagedata: ImageData,
+    dx: number,
+    dy: number,
+    dirtyX?: number,
+    dirtyY?: number,
+    dirtyWidth?: number,
+    dirtyHeight?: number
   ) {
+    let targetImageData = imagedata
+    if (dirtyX !== undefined && dirtyY !== undefined && dirtyWidth !== undefined && dirtyHeight !== undefined) {
+      targetImageData = {
+        data: new Uint8Array(dirtyWidth * dirtyHeight),
+        width: dirtyWidth,
+        height: dirtyHeight,
+      }
+      let currentIndex = 0
+      for (let rowIndex = dirtyY; rowIndex <= dirtyY + dirtyHeight; rowIndex++) {
+        for (let colIndex = dirtyX; colIndex <= dirtyX + dirtyWidth; colIndex++) {
+          targetImageData.data[currentIndex] = imagedata.data[rowIndex * imagedata.width + colIndex]
+          targetImageData.data[currentIndex + 1] = imagedata.data[rowIndex * imagedata.width + colIndex + 1]
+          targetImageData.data[currentIndex + 2] = imagedata.data[rowIndex * imagedata.width + colIndex + 2]
+          targetImageData.data[currentIndex + 3] = imagedata.data[rowIndex * imagedata.width + colIndex + 3]
+          currentIndex++
+        }
+      }
+    }
     this.#synchronizer.pushCommand(EnumMethodCommand.putImageData, [
-      imagedata,
+      Array.from(targetImageData.data),
       dx,
       dy,
-      dirtyX,
-      dirtyY,
-      dirtyWidth,
-      dirtyHeight,
+      targetImageData.width,
+      targetImageData.height,
     ])
   }
 

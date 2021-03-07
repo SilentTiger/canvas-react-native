@@ -1,4 +1,4 @@
-import { EnumMethodCommand, EnumPropertyCommand } from './Enum'
+import { EnumMethodCommand, EnumPropertyCommand } from './Common'
 
 interface ICommandCacheItem {
   id: number

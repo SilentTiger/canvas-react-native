@@ -69,7 +69,7 @@ npm install canvas-react-native
 |drawImage||||
 |createImageData|🟢|||
 |getImageData||||
-|putImageData||||
+|putImageData|🟢|||
 |getLineDash|🟢|||
 |setLineDash|🟢|||
 |arc|🟢|||
